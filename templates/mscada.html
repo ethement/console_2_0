@@ -1,0 +1,228 @@
+{% extends 'templ.html' %}
+{% block content1 %}
+<!--
+    btn_console - все кнопки формы (
+        value {
+        btn_statistics - вызов статистики,
+
+        btn_reboot - задать дату перезагрузки,
+        date_reboot - поле для даты перезагрузки,
+        btn_sent_notify - отправка сообщений, {
+            field_for_message_to_server - содержание сообщения
+        }
+        btn_reset_session - сброс сессий,
+
+        btn_sent_script - отправка скрипта, {
+            field_for_text_script - текст скрипта
+                                             }
+                }
+        CheckBoxes:{
+            checkbox_script: {
+                script1 - Restart spooler
+                script2 - Reset one session(enter # session)
+                script3 - restart server -force
+                script4 - Search event in system log(enter # event)
+                            }
+            checkbox_language: {
+                CMD
+                PowerShell
+                                }
+            checked_server:{
+                {{ server_name }}
+                    }
+
+ -->
+
+			<div class="btn_menu">
+
+                  <button name="btn_console" value="btn_statistics" class = "button_gr_menu">Statistics</button>
+                  <button type="button" class = "button_gr_menu" onclick="openFrom('Form_Notify');" name="btn_group" >Notify</button>
+                  <button type="button" class = "button_gr_menu" onclick="openFrom('Form_reset_sess');" name="btn_group" value="Reset_sess">Reset_sess</button>
+                  <button type="button" class = "button_gr_menu" onclick="openFrom('Form_sent_scripts');" name="btn_group" value="Script_sent">Script_sent</button>
+                  <button name="btn_console" value="btn_reboot" class = "button_gr_menu">Reboot</button>
+                  <input type="datetime-local" name="date_reboot" class = "button_gr_menu">
+        </div>
+			<div class="content_in">
+				<div class="content_cl">
+                    <table>
+                     <tr class="mscada_colm">
+                        <th></th>
+                {% for i in col_mscada_client %}
+                <th >{{ i }}</th>
+
+                    {%endfor%}
+                    </tr>
+                <tr >
+                {% for i in table_mscada_client_data %}
+                <tr class="mscada_tab">
+                    {% for j in range(len) %}
+                    {% if j == 0 %}
+
+                    <td class="mscada_check"><input type='checkbox' name='checked_server' value = "{{ i[j] }}"></td>
+                    {% endif %}
+                    {%if i[j] == 'no connect'%}
+                        <td class="Reserve_stat">{{ i[j] }}</td>
+                        {%else%}
+                 <td class="mscada_tab">{{ i[j] }}</td>
+{%endif%}
+                    {%endfor%}
+
+                    {%endfor%}
+
+
+                                    {%if table_mscada_server_data%}
+                                <tr>
+                        <th></th>
+                {% for i in col_mscada_server %}
+                <th>{{ i }}</th>
+
+                    {%endfor%}
+                    </tr>
+                <tr>
+                {% for i in table_mscada_server_data %}
+                <tr>
+                    {% for j in range(len+1) %}
+                    {% if j == 0 %}
+
+                    <td class="mscada_check"><input type='checkbox' name='checked_server' value = "{{ i[j] }}"></td>
+                    {% else%}
+
+
+                <td>{{ i[j - 1] }}</td>
+{% endif %}
+                    {%endfor%}
+                    </tr>
+                    {%endfor%}
+            {% endif %}
+
+                    </table>
+
+
+
+
+				</div>
+			</div>
+<script>
+function openFrom(id_form) {
+let text = '#'+id_form
+let blockHidden = document.querySelector(text);
+if(id_form == 'Form_reset_sess'){
+
+  blockHidden.classList.add('form-popup','session');
+}else{
+blockHidden.classList.add('form-popup');
+}
+}
+
+function closeForm(id_form) {
+let text = '#'+id_form
+let blockHidden = document.querySelector(text);
+  blockHidden.classList.remove('form-popup');
+  blockHidden.classList.add('hide_form');
+}
+
+</script>
+
+<div class="form-container">
+    <div class="hide_form" id="Form_Notify">
+        <div class="h1_cl">
+            <h1>Отправка сообщений:</h1>
+        </div>
+        <textarea class = "col-77" maxlength ="500" name = "field_for_message_to_server">Внимание! Сервер будет недоступен в течение 10 минут. Пожалуйста, сохраните свою работу и завершите сеанс.</textarea>
+        <button type="submit" class="button_gr_menu" name="btn_console" value ="btn_sent_notify">SEND</button>
+        <button type="button" class="button_gr_menu" onclick="closeForm('Form_Notify')">Close</button>
+    </div>
+</div>
+
+
+<div class="form-container">
+<div class="hide_form" id="Form_reset_sess">
+<div class="h1_cl">
+    <h1>Сброс сессий </h1>
+</div>
+
+    <button type="submit" class="button_gr_menu" name="form_sent" value ="btn_reset_session">DROP</button>
+    <button type="button" class="button_gr_menu" onclick="closeForm('Form_reset_sess')">Close</button>
+
+</div>
+</div>
+
+<div class="form-container">
+<div class="hide_form" id="Form_sent_scripts">
+<div class="h1_cl">
+    <h1>Отправка скрипта </h1>
+    <div>
+
+
+    <div class="form-group">
+          <label>
+            <input type="radio" name="checkbox_script" value="script1" class="real-radio-btn">
+            <span class="custom-radio-btn"></span>
+            Restart spooler
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="radio" name="checkbox_script" value="script2" class="real-radio-btn">
+            <span class="custom-radio-btn"></span>
+            Reset one session(enter # session)
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="radio" name="checkbox_script" value="script3" class="real-radio-btn">
+            <span class="custom-radio-btn"></span>
+            restart server -force
+          </label>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="radio" name="checkbox_script" value="script4" class="real-radio-btn">
+            <span class="custom-radio-btn"></span>
+            Search event in system log(enter # event)
+          </label>
+        </div>
+
+
+
+
+        </div>
+    <div class="radio_scripts">
+                 <div class="checkbox">
+                    <input type="radio" class="check" id="check1" name="checkbox_language" value="cmd"/>
+                    <label for="check1" class="label">
+                        <svg viewBox="0 0 100 100" height="50" width="50">
+            <rect x="30" y="20" width="50" height="50" stroke="black" fill="none" />
+            <g transform="translate(0,-952.36216)" id="layer1">
+              <path id="path4146" d="m 55,978 c -73,19 46,71 15,2 C 60,959 13,966 30,1007 c 12,30 61,13 46,-23" fill="none" stroke="#800000" stroke-width="5" class="path1" />
+            </g>
+          </svg>
+                      <span>CMD</span>
+                    </label>
+                  </div>
+                <div class="checkbox">
+                    <input type="radio" class="check" id="check2" name="checkbox_language" value="powershell"/>
+                    <label for="check2" class="label">
+                        <svg viewBox="0 0 100 100" height="50" width="50">
+            <rect x="30" y="20" width="50" height="50" stroke="black" fill="none" />
+            <g transform="translate(0,-952.36216)" id="layer1">
+              <path id="path4146" d="m 55,978 c -73,19 46,71 15,2 C 60,959 13,966 30,1007 c 12,30 61,13 46,-23" fill="none" stroke="#800000" stroke-width="5" class="path1" />
+            </g>
+          </svg>
+                      <span>PowerShell</span>
+                    </label>
+                  </div>
+
+
+    </div>
+
+</div>
+<textarea class = "col-77" maxlength ="3500" name = "field_for_text_script"></textarea>
+
+    <button type="submit" class="button_gr_menu" name="btn_console" value ="btn_sent_script">SEND</button>
+    <button type="button" class="button_gr_menu" onclick="closeForm('Form_sent_scripts')">Close</button>
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+        _____________________remail_____________________________
+
+    btn_console - все кнопки формы {
+        value: {
+        btn_add_redirection - добавление правила,
+        btn_dell_redirection - удаление правила,
+        btn_show_base_redirection - просмотр базы,
+                }
+    }
+        Поля ввода:{
+            field_for_mantis_req - номер обращения{
+                value = '{{old_req}}'
+            }
+            field_for_mail_sent_to - с кого пересылаем{
+                value = '{{old_sent_to}}'
+            }
+            field_for_mail_to_bbc -  на кого пересылаем
+            }
+        Поля дат:{
+        date_for_start_redirection - начало переадресации{
+            value='{{ data_s }}'
+            min='{{ data_s }}'
+        }
+        date_for_end_redirection - конец переадресации{
+            value='{{ data_e }}'
+            min='{{ data_e }}'
+        }
+        }
+        CheckBoxes:{
+            checked_remail: {
+                value = "{{ i[j+1] }}" - номер обращения
+                            }
+                    }
+}
+
+        _____________________adstat_____________________________
+<!--
+    btn_console - все кнопки формы (
+        value =
+        btn_show_base_added - просмотр пользователей в базе добавления,
+        btn_show_base_deleted - просмотр пользователей в архивной базе,
+        btn_show_group_vpn - просмотр пользователей в группе VPN,
+        btn_search_in_bases_add_dell - поиск по база вызванных кнопкой,
+
+    )
+
+    field_for_input_searches - поле поиска,
+
+ -->
+
+         _____________________add_group.html_____________________________
+
+<!--
+    btn_console - все кнопки формы (
+        value =
+        btn_test_users - проверка пользователей,
+        btn_add_users - добавление пользователей,
+        btn_mod_users_in_table - изменение членства в группе(группа, пользователь),
+        btn_mod_users_in_table_by_request - изменение членства в группе по обращению,
+        btn_dell_users - удаление пользователя,
+        btn_for_output_help - вызов справки,
+    )
+    checkbox = checkbox_add_group (
+        check_for_permanent_access - Постоянный доступ
+        check_for_forcing_adding - Быстрое добавление
+        check_for_adding_in_advance - На один день раньше
+    )
+    field_for_mantis_request - поле для обращение из мантса (Связанная переменная {{old_input_mantis_request}})
+    field_for_group -  поле для группы АД (Связанная переменная {{old_input_group}})
+    field_for_input_users - поле для ввода пользователей (Связанная переменная {{old_input_users}})
+    date_for_start - ввод даты для начала членства в группе (Связанная переменная value='{{ old_date_for_start }}' min='{{ data_start }}' )
+    date_for_end - ввод даты для окончания  членства в группе (Связанная переменная value='{{ old_date_for_end }}' min='{{ data_end }}' )
+ -->
+
+
+         _____________________add_group.html_____________________________

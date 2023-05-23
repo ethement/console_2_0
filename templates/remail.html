@@ -1,0 +1,93 @@
+{% extends 'templ.html' %}
+{% block content1 %}
+
+
+
+
+
+
+
+<div class="btn_menu">
+<div class="marg-bottom">
+        <div class="col-155">
+            <label for="obr">Обращение №:</label>
+        </div>
+            <input type="text"  id="obr" class = "col-77" name="field_for_mantis_req" placeholder="Input ..." value = '{{old_req}}'>
+
+        <div class="col-155">
+            <label for="to_sent">С кого:</label>
+        </div>
+            <input type="text"  id="to_sent" class = "col-77" name="field_for_mail_sent_to" placeholder="Input sent to..." value = '{{old_sent_to}}'>
+
+
+        <div class="col-155">
+            <label for="to_bbc_mail1">Кому:</label>
+        </div>
+            <input type="text"  id="to_bbc_mail1" class = "col-77" name="field_for_mail_to_bbc" placeholder="BlindCopyTo...">
+            <input type="text"  id="to_bbc_mail1" class = "col-77" name="field_for_mail_to_bbc" placeholder="BlindCopyTo...">
+            <input type="text"  id="to_bbc_mail1" class = "col-77" name="field_for_mail_to_bbc" placeholder="BlindCopyTo...">
+        <div class="col-155">
+            <label for="obr">Дата С</label>
+        </div>
+
+            <input type="datetime-local" name="date_for_start_redirection" class="input_text_form_button_date1" value='{{ data_s }}' min='{{ data_s }}'>
+
+        <div class="col-155">
+            <label for="obr">Дата до</label>
+        </div>
+
+            <input type="datetime-local" name="date_for_end_redirection" class="input_text_form_button_date1" value='{{ data_e }}' min='{{ data_e }}'>
+
+</div>
+    <button name="btn_console" value="btn_add_redirection" class = "button_gr_menu">Добавить</button>
+    <button name="btn_console" value="btn_dell_redirection" class = "button_gr_menu">Удалить</button>
+    <button name="btn_console" value="btn_show_base_redirection" class = "button_gr_menu">Список </button>
+</div>
+			<div class="content_in">
+				<div class="content_cl">
+
+        <div class="scroll-table">
+
+            <table class="tab_class">
+
+		            <thead>
+                        <tr>
+                            {% for i in column_re %}
+                                <th>{{ i }}</th>
+
+                            {%endfor%}
+                        </tr>
+                    </thead>
+
+
+		    	<tbody>
+                <tr>
+                {% for i in return_colm %}
+                <tr>
+                    <td class = "null_colm"><input type='checkbox'   name='checked_remail' value = "{{ i[0] }}" ></td>
+                    {% for j in i[1:] %}
+                        {% if '!' == j[0] and j == '!1900-01-01 00:00:00' %}
+                             <td  class = "style_out_re"> В работе </td>
+                        {% elif  '!' == j[0] and j != '!1900-01-01 00:00:00' %}
+                        <td  class = "style_out_re">   {{j[1:]}} </td>
+                        {%else%}
+                            <td>{{ j }}</td>
+                        {%endif%}
+
+                    {%endfor%}
+                    </tr>
+                    {%endfor%}
+
+
+
+                			</tbody>
+		</table>
+	</div>
+</div>
+
+
+</div>
+
+
+
+{% endblock %}

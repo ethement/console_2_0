@@ -1,0 +1,40 @@
+{% extends 'templ.html' %}
+{% block content1 %}
+
+
+        <div class="btn_menu">
+            <div class="ad_stat">
+            <button name="btn_console" value="btn_show_base_added" class="button_gr_menu">Show users in table</button>
+            <button name="btn_console" value="btn_show_base_deleted" class="button_gr_menu">Show deleted users</button>
+            <button name="btn_console" value="btn_show_group_vpn" class="button_gr_menu">Show group VPN</button>
+            </div>
+
+                       <div class="col-155" style="margin-top:30%;">
+                <label for="obr">Введите данные для поиска:           </label>
+            </div>
+            <div class = "">
+                <input type="text"  id="obr" class = "col-55" name="field_for_input_searches" placeholder="Input #..." value = '{{old_input_obr}}'>
+            </div>
+            <button name="btn_console" value="btn_search_in_bases_add_dell" class="button_gr_menu" style="margin-bottom:50%;">Search</button>
+        </div>
+			<div class="content_in">
+				<div class="content_cl">
+
+
+				</div>
+			</div>
+
+<script>
+  $( function() {
+    var availableTags = [
+        {% for groups in all_groups %}
+            "{{groups}}",
+        {% endfor %}
+    ];
+    $( "#group" ).autocomplete({
+      source: availableTags
+    });
+  } );
+  </script>
+
+{% endblock %}

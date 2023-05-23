@@ -1,0 +1,232 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title>Пример блочной верстки</title>
+
+	<link rel="stylesheet" href="/static/style_light.css" class="style">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">
+    </script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">
+    </script>
+</head>
+
+<body>
+
+<div>
+	<div class="head">
+		<div class="btn_head">
+
+			<form action="/add_group_test">
+				<button type="submit" class = "button_gr_head">Add group</button>
+			</form>
+			<form action="/ad_stat_test">
+                <button class="button_gr_head">Add group stat</button>
+            </form>
+
+			<form action="/farm_test">
+				<button type="submit" class = "button_gr_head">RDS</button>
+			</form>
+
+			<form action="/mscada_test" >
+				<button type="submit" class = "button_gr_head">Mscada</button>
+			</form>
+
+			<form action="/remail_test">
+				<button type="submit" class = "button_gr_head">Re mail</button>
+			</form>
+
+			<form action="/mail_stat_test">
+				<button type="submit" class = "button_gr_head">Mail stat</button>
+			</form>
+
+			<div class="switch">
+            <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox">
+            <label for="cmn-toggle-1"></label>
+          </div>
+		</div>
+
+	</div>
+	<form class= "adds_form" name = "adds_form" method = "post">
+	<div class="body">
+		{% block content1 %}{% endblock %}
+
+		<div class="loging">
+			<div class="loging_cl">
+				<div class="output_log">
+					{% if metode == 'POST' %}
+
+						{% for key,items in  log_date.items() %}
+<!--							{% if key == 'btn_change_status' %}-->
+<!--								<div class="head_data">Проводятся работы по изменению статуса сервера/серверов:</div>-->
+<!--								{% for key,item in  items.items() %}-->
+<!--									<div class="block_data">-->
+<!--									<p class="server_name">Server: <span class="style_out_srv">{{ key }}</span></p>-->
+<!--									{% for key,item in  item.items() %}-->
+<!--										<p class="server_data ">-->
+<!--										{% if key == 'status' %}-->
+<!--											{% if item == True %}-->
+<!--												Статус сервера успешно изменен!-->
+<!--											{% else %}-->
+<!--												Статус сервера не был изменен!-->
+<!--											{% endif %}-->
+
+<!--										{% elif key == 'output' and item == 'Reserve'%}-->
+
+<!--											Новый статус сервера: <span class="status_out_srv_reserve"> {{ item }}</span>-->
+<!--										{% elif key == 'output' and item == 'Active'%}-->
+
+<!--											Новый статус сервера: <span class="status_out_srv_active"> {{ item }}</span>-->
+<!--										{% elif key == 'output' %}-->
+
+<!--											Новый статус сервера: {{ item }}-->
+<!--										{% endif %}-->
+
+<!--										</p>-->
+<!--									{% endfor %}-->
+<!--									</div>-->
+<!--								{% endfor %}-->
+<!--							{% elif key == 'btn_reboot' %}-->
+<!--								<div class="head_data">Проводятся работы по изменению даты перезагрузки сервера/серверов:</div>-->
+<!--								{% for key,item in  items.items() %}-->
+<!--									<div class="block_data">-->
+<!--									<p class="server_name">Server: <span class="style_out_srv">{{ key }}</span></p>-->
+
+<!--									{% for key,item in  item.items() %}-->
+<!--										<p class="server_data ">-->
+<!--										{% if key == 'status' %}-->
+<!--											{% if item == True %}-->
+<!--												Дата сервера успешно изменена!-->
+<!--											{% else %}-->
+<!--												Дата сервера не была изменен!-->
+<!--											{% endif %}-->
+<!--											{% elif key == 'output'%}-->
+<!--										Новая дата перезагрузки сервера:<p>  <div class="status_out_srv_script"> {{ item }}</div></p>-->
+<!--											{% endif %}-->
+<!--										</p>-->
+<!--									{% endfor %}-->
+<!--									</div>-->
+<!--								{% endfor %}-->
+<!--							-->
+<!--							{% elif key == 'btn_sent_script' %}-->
+
+<!--								<div class="head_data">Проводятся работы по отправки скрипта для сервера/серверов:</div>-->
+<!--									{% for key,item in  items.items() %}-->
+<!--										<div class="block_data">-->
+<!--											{% if key != 'Ошибка' %}-->
+<!--										<p class="server_name">Server: <span class="style_out_srv">{{ key }}</span></p>-->
+<!--										{% for key,item in  item.items() %}-->
+<!--											<p class="server_data ">-->
+<!--											{% if key == 'output_script' %}-->
+<!--												<br>-->
+<!--												Скрипт вернул:-->
+<!--												<div class="status_out_srv_script">-->
+<!--												{% for i in item %}-->
+<!--												 <p>{{i}}</p>-->
+
+<!--												{% endfor %}-->
+<!--											</div>-->
+<!--											{% elif key == 'input_script'%}-->
+<!--											<br>-->
+<!--											Отправлен скрипт :<p>  <div class="status_out_srv_script"> {{ item }}</div></p>-->
+<!--											{% endif %}-->
+<!--											</p>-->
+<!--										{% endfor %}-->
+<!--											{%else%}-->
+<!--											<p class="server_name">Server: <span class="style_out_srv">{{ key }}</span></p>-->
+<!--										{% for key,item in  item.items() %}-->
+<!--											<p class="server_data ">-->
+<!--											{% if key == 'output_script' %}-->
+<!--												<br>-->
+<!--												Скрипт вернул:-->
+<!--												<div class="status_out_srv_script">-->
+<!--											{{item}}-->
+<!--											</div>-->
+<!--											{% elif key == 'input_script'%}-->
+<!--											<br>-->
+<!--											Отправлен скрипт :<p>  <div class="status_out_srv_script"> {{ item }}</div></p>-->
+<!--											{% endif %}-->
+<!--											</p>-->
+<!--										{% endfor %}-->
+<!--											{%endif%}-->
+<!--										</div>-->
+<!--									{% endfor %}-->
+
+							{% if key  %}
+								<div class="head_data">Проводятся работы с сервером/серверами:</div>
+								{% for key,item in  items.items() %}
+									<div class="block_data">
+									<p class="server_name">Server: <span class="style_out_srv">{{ key }}</span></p>
+									{% for key,item in  item.items() %}
+										<p class="server_data ">
+										{{key,item}}
+
+										</p>
+									{% endfor %}
+									</div>
+								{% endfor %}
+
+
+							{% endif %}
+						{% endfor %}
+						{%else%}
+						{{log_date}}
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bot">bot </div>
+</form>
+
+
+
+</div>
+
+
+
+
+</body>
+<script>
+  if (localStorage.getItem('style') == 'dark') {
+    document.querySelector('.style').href="/static/style_dark.css";
+  }
+  document.querySelector('#cmn-toggle-1').onclick = function (){
+    if (document.querySelector('.style').getAttribute('href') === '/static/style_light.css') {
+      document.querySelector('.style').href="/static/style_dark.css";
+      localStorage.setItem('style', 'dark');
+    } else {
+      document.querySelector('.style').href="/static/style_light.css";
+      localStorage.setItem('style', 'light');
+    }
+  }
+
+function log_out(btn, srv, status, out_str){
+	this.btn = btn
+	this.srv = srv
+	this.status = status
+	this.out_str = out_str
+	this.btn_change_status = function(){
+		let head_out = document.getElementById('head_out')
+		head_out.innerHTML = "<span>Новый header</span>";
+
+		let srv_out = document.getElementById('srv_out')
+		srv_out.innerHTML = "<span>Новый header</span>";
+
+		let body_out = document.getElementById('head_out')
+		body_out.innerHTML = "<span>Новый header</span>";
+
+	}
+	this.start = function(){
+	if (this.btn == btn_change_status){
+
+	}
+	}
+}
+
+</script>
+
+</html>
